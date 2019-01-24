@@ -29,7 +29,7 @@ func TestEventUnmarshalJSON(t *testing.T) {
 		"api_app_id":"API APP ID",
 		"authed_users":[],
 		"event_id":"EVENT ID",
-		"event_time":1001,
+		"event_time":1001.199,
 		"event":{
 			"type":"message"
 		}

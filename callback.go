@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -30,10 +31,10 @@ type InnerEvent struct {
 
 type Message struct {
 	*HasType
-	Text      string   `json:"text"`
-	Channel   string   `json:"channel"`
-	User      string   `json:"user"`
-	Timestamp UnixTime `json:"ts"`
+	Text      string    `json:"text"`
+	Channel   string    `json:"channel"`
+	User      string    `json:"user"`
+	Timestamp *UnixTime `json:"ts"`
 }
 
 type Callback struct {
@@ -58,7 +59,8 @@ func (server *CallbackServer) Handler(event *Callback) error {
 }
 
 func (t *UnixTime) UnmarshalJSON(data []byte) error {
-	i, err := strconv.ParseInt(string(data), 10, 64)
+	parts := strings.Split(string(data), ".")
+	i, err := strconv.ParseInt(parts[0], 10, 64)
 	if err != nil {
 		return err
 	}
