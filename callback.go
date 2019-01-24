@@ -59,7 +59,7 @@ func (server *CallbackServer) Handler(event *Callback) error {
 }
 
 func (t *UnixTime) UnmarshalJSON(data []byte) error {
-	parts := strings.Split(string(data), ".")
+	parts := strings.Split(strings.Trim(string(data), "\""), ".")
 	i, err := strconv.ParseInt(parts[0], 10, 64)
 	if err != nil {
 		return err

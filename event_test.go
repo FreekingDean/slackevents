@@ -2,7 +2,6 @@ package slackevents_test
 
 import (
 	"encoding/json"
-	"log"
 	"testing"
 
 	"github.com/FreekingDean/slackevents"
@@ -29,7 +28,7 @@ func TestEventUnmarshalJSON(t *testing.T) {
 		"api_app_id":"API APP ID",
 		"authed_users":[],
 		"event_id":"EVENT ID",
-		"event_time":1001.199,
+		"event_time":"1001.199",
 		"event":{
 			"type":"message"
 		}
@@ -46,7 +45,6 @@ func TestEventUnmarshalJSON(t *testing.T) {
 		"API APP ID",
 		callback.APIAppID,
 	)
-	log.Println(callback.EventTime)
 	assert.Equal(t, 1001, int(callback.EventTime.Unix()))
 	assert.Equal(t, "message", callback.InnerEvent.Type)
 }
