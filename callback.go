@@ -69,6 +69,10 @@ func (t *UnixTime) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (t *UnixTime) MarshalJSON() ([]byte, error) {
+	return []byte(fmt.Sprintf("\"%d\"", t.Unix())), nil
+}
+
 func (inner *InnerEvent) UnmarshalJSON(data []byte) error {
 	eventType := &HasType{}
 	err := json.Unmarshal(data, eventType)

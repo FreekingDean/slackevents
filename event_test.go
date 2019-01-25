@@ -21,19 +21,7 @@ func TestEventUnmarshalJSON(t *testing.T) {
 		event.ParsedEvent.(*slackevents.URLVerification).Challenge,
 	)
 
-	callbackEvent := `
-	{
-		"type":"event_callback",
-		"team_id":"TEAM ID",
-		"api_app_id":"API APP ID",
-		"authed_users":[],
-		"event_id":"EVENT ID",
-		"event_time":"1001.199",
-		"event":{
-			"type":"message"
-		}
-	}
-	`
+	callbackEvent := `{"type":"event_callback","team_id":"TEAM ID","api_app_id":"API APP ID","authed_users":[],"event_id":"EVENT ID","event_time":"1001.199","event":{"type":"message"}}`
 	event = &slackevents.Event{}
 	err = json.Unmarshal([]byte(callbackEvent), event)
 	assert.NoError(t, err)
@@ -47,4 +35,6 @@ func TestEventUnmarshalJSON(t *testing.T) {
 	)
 	assert.Equal(t, 1001, int(callback.EventTime.Unix()))
 	assert.Equal(t, "message", callback.InnerEvent.Type)
+	_, err = json.Marshal(event)
+	assert.NoError(t, err)
 }
